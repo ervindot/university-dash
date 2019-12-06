@@ -31,7 +31,7 @@ function love.update(dt)
 	if timer > 0 and distanceTravelled < distanceRequired then
 
 		if k.isDown("s") then
-			character.study()
+			character.study(dt)
 		else
 			character.notStudy()
 		end
