@@ -57,14 +57,14 @@ end
 --make it public
 Entities.draw = draw
 
-local function updateEntity(entity, dt)
-	entity.x = entity.x + entity.speedX * dt
+local function updateEntity(entity, dt, vx)
+	entity.x = entity.x + entity.speedX * dt - vx * dt
 	entity.y = entity.y + entity.speedY * dt
 end
 
-local function updateEntities(dt)
+local function updateEntities(dt, vx)
 	for i=1,#Entities.entities do
-		updateEntity(Entities.entities[i], dt)
+		updateEntity(Entities.entities[i], dt, vx)
 	end
 end
 
@@ -72,7 +72,7 @@ end
 Entities.update = updateEntities
 
 -- --------------------------------------------
-addEntity(500, 50, -80, 0, 10, 30)
-addEntity(300, 200, -40, 10, 70, 10)
+addEntity(500, 50, 0, 0, 10, 30)
+addEntity(300, 200, 0, 0, 70, 10)
 
 return Entities

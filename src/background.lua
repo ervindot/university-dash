@@ -16,9 +16,9 @@ local function load()
     
 end
 
-local function update(speed)
+local function update(speed, dt)
 
-	Background.x = Background.x - speed
+	Background.x = Background.x - speed * dt
 
 end
 

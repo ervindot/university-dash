@@ -18,7 +18,7 @@ Character.speedY = 0
 
 
 local gravity = 2500
-local groundFriction = 0.1
+local groundFriction = 0.2
 
 local groundY = 300
 Character.x = 300
@@ -33,8 +33,8 @@ local moveTimer = 0
 
 
 local function draw()
-    g.setBackgroundColor(1,1,1)
-    g.setColor(0,0,0)
+    --g.setBackgroundColor(1,1,1)
+    g.setColor(1,1,1)
     g.rectangle('fill', Character.x, Character.y, Character.width, Character.height)
     g.print(Character.speedY, 20, 20)
     g.print(Character.y, 30,30)
@@ -59,7 +59,7 @@ local function sprint(deltaTime)
         Character.moveState = 0
 
         moveTimer = moveTimer + deltaTime
-        Character.speedX = math.max(moveTimer, 5)
+        Character.speedX = math.min(moveTimer, 5) * 40
     end
 end
 
