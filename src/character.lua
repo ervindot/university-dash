@@ -96,6 +96,11 @@ local function slide(deltaTime)
     end
 end
 
+local function noInputNextState(deltaTime)
+    sprint(deltaTime)
+    fall(deltaTime,1)
+end
+
 local function jump(deltaTime)
     if Character.grounded then
         Character.animState = 0
@@ -103,6 +108,8 @@ local function jump(deltaTime)
         Character.speedY = -1000
         Character.grounded = false
         Character.y = groundY + deltaTime * Character.speedY
+    else
+        Character.noInputNextState(deltaTime)
     end
 end
 
@@ -110,11 +117,6 @@ local function stumble()
     Character.animState = 0
     Character.moveState = 4
     Character.speedY = 5
-end
-
-local function noInputNextState(dt)
-    sprint(dt)
-    fall(dt,1)
 end
 
 Character.draw = draw
