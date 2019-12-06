@@ -50,4 +50,8 @@ function love.update(dt)
 
 	end
 
+	if k.isDown('r') then
+		love.load()
+	end
+
 end
