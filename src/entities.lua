@@ -9,7 +9,7 @@ Entities.entities = {}
 Entities.images = {}
 
 -- create a dicitonary of the entity fields
-local function addEntity(posX, posY, speedX, speedY, width, height, imageName)
+local function addEntity(posX, posY, speedX, speedY, width, height, imageName, scaleX, scaleY, offsetX, offsetY)
 	local entity = {}
 	entity.x = posX
 	entity.y = posY
@@ -17,6 +17,10 @@ local function addEntity(posX, posY, speedX, speedY, width, height, imageName)
 	entity.speedY = speedY
 	entity.width = width
 	entity.height = height
+	entity.scaleX = scaleX
+	entity.scaleY = scaleY
+	entity.offsetX = offsetX
+	entity.offsetY = offsetY
 	entity.imageName = imageName
 
 	table.insert(Entities.entities, entity)
@@ -49,7 +53,7 @@ Entities.checkCollision = checkCollision
 -- draw one particular entity
 local function drawEntity(entity)
 	--love.graphics.rectangle("fill", entity.x, entity.y, entity.width, entity.height)
-	g.draw(Entities.images[entity.imageName], entity.x, entity.y)
+	g.draw(Entities.images[entity.imageName], entity.x + entity.offsetX, entity.y + entity.offsetY, 0, entity.scaleX, entity.scaleY)
 end
 
 -- main drawing function
@@ -74,7 +78,25 @@ local function updateEntities(dt, vx)
 end
 
 local function load()
-	Entities.images["cyclist"] = g.newImage("resources/run-0.png")
+	Entities.entities = {}
+	Entities.images["cyclist"] = g.newImage("resources/entity-cyclist.png")
+	--Entities.images["shop"] = g.newImage("resources/entity-shop.jpg")
+	Entities.images["bird"] = g.newImage("resources/entity-bird.png")
+
+		-- x, y, speedx, speedy, width, height
+	addEntity(1000, groundY, 0, 0, 30, 30, "cyclist", 0.15, 0.15, 0, -125)
+	addEntity(2000, groundY, -200, 00, 40, 40, "bird", 0.2, 0.2, 0, -50)
+	--[[addEntity(3000, groundY, 0, 0, 40, 40, "shop", 0.2, 0.2, 0, 0)
+	addEntity(4500, groundY, 0, 0, 40, 40, "cyclist")
+	addEntity(5000, groundY, 300, 0, 40, 40, "cyclist")
+	addEntity(7000, groundY, 0, 0, 40, 40, "bird")
+	addEntity(9500, groundY, -100, 0, 40, 40, "bird")
+	addEntity(12000, groundY, 0, 0, 40, 40, "shop")
+	addEntity(15000, groundY, -150, 0, 40, 40, "bird")
+	addEntity(16000, groundY, 0, 0, 40, 40, "shop")
+	addEntity(19000, groundY, -400, 0, 40, 40, "cyclist")
+	addEntity(22000, groundY, 50, 0, 40, 40, "bird")]]--
+
 end
 
 --make it public
@@ -82,19 +104,7 @@ Entities.update = updateEntities
 Entities.load = load
 
 -- --------------------------------------------
-	-- x, y, speedx, speedy, width, height
-	addEntity(1000, groundY, 0, 0, 30, 30, "cyclist")
-	addEntity(2000, groundY, -200, 0, 40, 40, "cyclist")
-	addEntity(3000, groundY, 0, 0, 40, 40, "cyclist")
-	addEntity(4500, groundY, 0, 0, 40, 40, "cyclist")
-	addEntity(5000, groundY, 300, 0, 40, 40, "cyclist")
-	addEntity(7000, groundY, 0, 0, 40, 40, "cyclist")
-	addEntity(9500, groundY, -100, 0, 40, 40, "cyclist")
-	addEntity(12000, groundY, 0, 0, 40, 40, "cyclist")
-	addEntity(15000, groundY, -150, 0, 40, 40, "cyclist")
-	addEntity(16000, groundY, 0, 0, 40, 40, "cyclist")
-	addEntity(19000, groundY, -400, 0, 40, 40, "cyclist")
-	addEntity(22000, groundY, 50, 0, 40, 40, "cyclist")
+
 
 
 return Entities

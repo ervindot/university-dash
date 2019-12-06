@@ -2,6 +2,11 @@ function love.load()
 	g = love.graphics
 	k = love.keyboard
 
+	timer = 60
+	distanceTravelled = 0
+	distanceRequired = 20000
+	groundY = 450
+
 	character = require("character")
 	background = require("background")
 	entities = require("entities")
@@ -10,10 +15,7 @@ function love.load()
 	background.load()
 	hud.load()
 	character.load()
-
-	timer = 30
-	distanceTravelled = 0
-	distanceRequired = 10000
+	entities.load()
 
 end
 
@@ -38,6 +40,10 @@ function love.update(dt)
 		hud.update()
 		entities.update(dt, character.speedX)
 
+		if entities.checkCollision(character) then
+			character.stumble()
+		end
+		
 		if k.isDown("down") then
 			character.slide(dt)
 		elseif k.isDown("up") then
