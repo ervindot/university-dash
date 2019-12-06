@@ -109,7 +109,7 @@ local function draw()
 
     local offset = 65
     local scale = 3
-    local delayFactor = 60
+    local delayFactor = .1
     -- regular running
     if (Character.moveState == 0) and not Character.stuyding then
         g.draw(Character.runSprite[math.ceil(Character.animState / delayFactor) % Character.runs],
@@ -119,22 +119,22 @@ local function draw()
         g.draw(Character.bookRunSprite[math.ceil(Character.animState / (delayFactor * 3)) % Character.runs],
              Character.x - offset, Character.y-offset, 0, scale, scale)
     --jump up
-    elseif Character.moveState == 3 and Character.speedY < 0 and not Character.studying then
+    elseif (Character.moveState == 3 or Character.moveState == 4) and Character.speedY < 0 and not Character.studying then
         g.draw(Character.jumpSprite[2],
              Character.x - offset, Character.y-offset, 0, scale, scale)
     
     --jump up study
-    elseif Character.moveState == 3 and Character.speedY < 0 and Character.studying then
+    elseif (Character.moveState == 3 or Character.moveState == 4) and Character.speedY < 0 and Character.studying then
         g.draw(Character.bookJumpSprite[2],
              Character.x - offset, Character.y-offset, 0, scale, scale)
     
     --fall down    
-    elseif Character.moveState == 3 and Character.speedY > 0 and not Character.studying then
+    elseif (Character.moveState == 3 or Character.moveState == 4) and Character.speedY > 0 and not Character.studying then
         g.draw(Character.fallSprite[math.ceil(Character.animState / delayFactor) % Character.falls],
              Character.x - offset, Character.y-offset, 0, scale, scale)
     
     --fall down study
-    elseif Character.moveState == 3 and Character.speedY > 0 and Character.studying then
+    elseif (Character.moveState == 3 or Character.moveState == 4) and Character.speedY > 0 and Character.studying then
         g.draw(Character.bookFallSprite[math.ceil(Character.animState / delayFactor) % Character.falls],
              Character.x - offset, Character.y-offset, 0, scale, scale)
     --slide with book
@@ -161,7 +161,7 @@ end
 
 local function study(deltaTime)
     if canStudy() then
-        Character.score = Character.score + 0.01 / deltaTime
+        Character.score = Character.score + 30 * deltaTime
         Character.studying = true
     end
 end
@@ -170,8 +170,8 @@ local function notStudy()
     Character.studying = false
 end
 
-local function studyWalk()
-    Character.animState = Character.animState + 1
+local function studyWalk(deltaTime)
+    Character.animState = Character.animState + deltaTime
     Character.moveState = 1
     Character.speedX = 100
 end
@@ -182,19 +182,19 @@ local function sprint(deltaTime)
             moveTimer = 0
             animState = 0
         end
-        Character.animState = Character.animState + 1
+        Character.animState = Character.animState + deltaTime
         Character.moveState = 0
 
         moveTimer = moveTimer + deltaTime
         Character.speedX = math.min(Character.speedX + 6-math.min(moveTimer, 6), 600)
     elseif Character.grounded then
-        studyWalk()
+        studyWalk(deltaTime)
     end
 end
 
 local function fall(deltaTime, fallSpeed)
     if not Character.grounded then
-        Character.animState = Character.animState + 1
+        Character.animState = Character.animState + deltaTime
         Character.speedY = Character.speedY + gravity * deltaTime * fallSpeed
         Character.y = Character.y + Character.speedY * deltaTime
         if(Character.y > groundY) then
