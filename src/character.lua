@@ -1,5 +1,4 @@
 local g = love.graphics
-local k = love.keyboard
 
 local Character = {}
 
@@ -10,56 +9,77 @@ local Character = {}
 --fall 3
 --stumble 4
 
-Character.moveState = 1
-Character.animState = 0
-
-Character.speedX = 0
-Character.speedY = 0
-
-
 local gravity = 2500
-local groundFriction = 0.2
+local groundFriction = 1
 
 local groundY = 300
-Character.x = 300
-Character.y = groundY
-Character.width = 30
-Character.height = 30
 
 
-Character.studying = false
-Character.grounded = true
-local moveTimer = 0
 
+local function load()
+    Character.moveState = 1
+    Character.animState = 0
+
+    moveTimer = 0
+
+
+    Character.speedX = 0
+    Character.speedY = 0
+
+    Character.x = 300
+    Character.y = groundY
+    Character.width = 30
+    Character.height = 30
+
+    Character.score = 0
+    Character.studying = false
+    Character.grounded = true
+end
 
 local function draw()
     --g.setBackgroundColor(1,1,1)
     g.setColor(1,1,1)
     g.rectangle('fill', Character.x, Character.y, Character.width, Character.height)
-    g.print(Character.speedY, 20, 20)
-    g.print(Character.y, 30,30)
-    g.print(string.format("%s", Character.grounded), 40,40)
+    g.print(Character.score, 10, 20)
+    g.print(Character.speedX, 10, 30)
+    g.print(Character.y, 30,40)
+    g.print(string.format("%s", Character.moveState == 2), 40,60)
 
 end
 
 local function canStudy()
-    return (Character.moveState == 2 or Character.moveState == 3)
+    return (Character.moveState == 0 or Character.moveState == 1 or Character.moveState == 2 or Character.moveState == 3)
 end
 
 local function study()
-    return 0
+    if canStudy() then
+        Character.score = Character.score + 1
+        studying = true
+    end
+end
+
+local function notStudy()
+    studying = false
+end
+
+local function studyWalk()
+    Character.animState = 0
+    Character.moveState = 1
+    Character.speedX = 100
 end
 
 local function sprint(deltaTime)
-    if Character.grounded then
-        if(not Character.moveState == 0) then
+    if Character.grounded and not studying then
+        if not (Character.moveState == 0) then
             moveTimer = 0
         end
         Character.animState = 0
         Character.moveState = 0
 
         moveTimer = moveTimer + deltaTime
-        Character.speedX = math.min(moveTimer, 5) * 40
+        Character.speedX = math.min(Character.speedX + 6-math.min(moveTimer, 6), 600)
+    elseif Character.grounded then
+        studyWalk()
     end
 end
 
@@ -76,15 +96,9 @@ local function fall(deltaTime, fallSpeed)
     end
 end
 
-local function walk()
-    Character.animState = 0
-    Character.moveState = 1
-    Character.speedX = 2
-end
-
 local function slide(deltaTime)
     if Character.grounded then
-        if(not Character.moveState == 2) then
+        if not (Character.moveState == 2) then
             moveTimer = 0
         end
         Character.animState = 0
@@ -123,7 +137,9 @@ Character.draw = draw
 Character.noInputNextState = noInputNextState
 Character.slide = slide
 Character.jump = jump
-
+Character.load = load
+Character.study = study
+Character.notStudy = notStudy
 
 return Character
 
