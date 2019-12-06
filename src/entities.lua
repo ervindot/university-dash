@@ -80,22 +80,22 @@ end
 local function load()
 	Entities.entities = {}
 	Entities.images["cyclist"] = g.newImage("resources/entity-cyclist.png")
-	--Entities.images["shop"] = g.newImage("resources/entity-shop.jpg")
+	Entities.images["tourists1"] = g.newImage("resources/entity-tourists1.png")
 	Entities.images["bird"] = g.newImage("resources/entity-bird.png")
 
 		-- x, y, speedx, speedy, width, height
 	addEntity(1000, groundY, 0, 0, 30, 30, "cyclist", 0.15, 0.15, 0, -125)
-	addEntity(2000, groundY, -200, 00, 40, 40, "bird", 0.2, 0.2, 0, -50)
-	--[[addEntity(3000, groundY, 0, 0, 40, 40, "shop", 0.2, 0.2, 0, 0)
-	addEntity(4500, groundY, 0, 0, 40, 40, "cyclist")
-	addEntity(5000, groundY, 300, 0, 40, 40, "cyclist")
-	addEntity(7000, groundY, 0, 0, 40, 40, "bird")
-	addEntity(9500, groundY, -100, 0, 40, 40, "bird")
-	addEntity(12000, groundY, 0, 0, 40, 40, "shop")
-	addEntity(15000, groundY, -150, 0, 40, 40, "bird")
-	addEntity(16000, groundY, 0, 0, 40, 40, "shop")
-	addEntity(19000, groundY, -400, 0, 40, 40, "cyclist")
-	addEntity(22000, groundY, 50, 0, 40, 40, "bird")]]--
+	addEntity(2000, groundY - 150, -200, 00, 40, 40, "bird", 0.2, 0.2, 0, 0)
+	addEntity(3000, groundY, 0, 0, 125, 175, "tourists1", 0.35, 0.35, 0, -125)
+	addEntity(4500, groundY, 0, 0, 40, 40, "cyclist", 0.15, 0.15, 0, -125)
+	addEntity(5000, groundY, 300, 0, 40, 40, "cyclist", 0.15, 0.15, 0, -125)
+	addEntity(7000, groundY, 0, 0, 40, 40, "tourists1", 0.35, 0.35, 0, -125)
+	addEntity(9500, groundY - 150, -100, 0, 40, 40, "bird", 0.2, 0.2, 0, 0)
+	addEntity(12000, groundY, 0, 0, 40, 40, "tourists1", 0.35, 0.35, 0, -125)
+	addEntity(15000, groundY - 150, -150, 0, 40, 40, "bird", 0.2, 0.2, 0, 0)
+	addEntity(16000, groundY, 0, 0, 40, 40, "tourists1", 0.35, 0.35, 0, -125)
+	addEntity(19000, groundY, -400, 0, 40, 40, "cyclist", 0.15, 0.15, 0, -125)
+	addEntity(22000, groundY - 150, 50, 0, 40, 40, "bird", 0.2, 0.2, 0, 0)
 
 end
 

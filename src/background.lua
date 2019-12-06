@@ -9,6 +9,7 @@ local function load()
     Background.images[1] = love.graphics.newImage("resources/background.jpg")
     Background.images[2] = love.graphics.newImage("resources/background2.jpg")
     Background.images[3] = love.graphics.newImage("resources/background3.jpg")
+    Background.images[4] = love.graphics.newImage("resources/background4.jpg")
 
     for i = 4, 15, 1 do
     	Background.images[i] = Background.images[love.math.random(1, 3)]
