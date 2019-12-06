@@ -5,8 +5,11 @@ local Entities = {}
 -- A list of the entities we have
 Entities.entities = {}
 
+-- Table of entity images
+Entities.images = {}
+
 -- create a dicitonary of the entity fields
-local function addEntity(posX, posY, speedX, speedY, width, height)
+local function addEntity(posX, posY, speedX, speedY, width, height, imageName)
 	local entity = {}
 	entity.x = posX
 	entity.y = posY
@@ -14,6 +17,7 @@ local function addEntity(posX, posY, speedX, speedY, width, height)
 	entity.speedY = speedY
 	entity.width = width
 	entity.height = height
+	entity.imageName = imageName
 
 	table.insert(Entities.entities, entity)
 end
@@ -44,7 +48,8 @@ Entities.checkCollision = checkCollision
 
 -- draw one particular entity
 local function drawEntity(entity)
-	love.graphics.rectangle("fill", entity.x, entity.y, entity.width, entity.height)
+	--love.graphics.rectangle("fill", entity.x, entity.y, entity.width, entity.height)
+	g.draw(Entities.images[entity.imageName], entity.x, entity.y)
 end
 
 -- main drawing function
@@ -68,11 +73,28 @@ local function updateEntities(dt, vx)
 	end
 end
 
+local function load()
+	Entities.images["cyclist"] = g.newImage("resources/run-0.png")
+end
+
 --make it public
 Entities.update = updateEntities
+Entities.load = load
 
 -- --------------------------------------------
-addEntity(500, 50, 0, 0, 10, 30)
-addEntity(300, 200, 0, 0, 70, 10)
+	-- x, y, speedx, speedy, width, height
+	addEntity(1000, groundY, 0, 0, 30, 30, "cyclist")
+	addEntity(2000, groundY, -200, 0, 40, 40, "cyclist")
+	addEntity(3000, groundY, 0, 0, 40, 40, "cyclist")
+	addEntity(4500, groundY, 0, 0, 40, 40, "cyclist")
+	addEntity(5000, groundY, 300, 0, 40, 40, "cyclist")
+	addEntity(7000, groundY, 0, 0, 40, 40, "cyclist")
+	addEntity(9500, groundY, -100, 0, 40, 40, "cyclist")
+	addEntity(12000, groundY, 0, 0, 40, 40, "cyclist")
+	addEntity(15000, groundY, -150, 0, 40, 40, "cyclist")
+	addEntity(16000, groundY, 0, 0, 40, 40, "cyclist")
+	addEntity(19000, groundY, -400, 0, 40, 40, "cyclist")
+	addEntity(22000, groundY, 50, 0, 40, 40, "cyclist")
+
 
 return Entities
