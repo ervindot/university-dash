@@ -151,7 +151,7 @@ local function draw()
     --g.print(Character.score, 10, 20)
     --g.print(Character.speedX, 10, 30)
     -- g.print(Character.studying, 30,40)
-    g.print(string.format("%s", Character.studying, 40,60))
+    --g.print(string.format("%s", Character.studying, 40,60))
 
 end
 
@@ -159,9 +159,9 @@ local function canStudy()
     return (Character.moveState == 0 or Character.moveState == 1 or Character.moveState == 2 or Character.moveState == 3)
 end
 
-local function study()
+local function study(deltaTime)
     if canStudy() then
-        Character.score = Character.score + 1
+        Character.score = Character.score + 0.01 / deltaTime
         Character.studying = true
     end
 end
@@ -231,6 +231,7 @@ local function jump(deltaTime)
         Character.speedY = -1000
         Character.grounded = false
         Character.y = groundY + deltaTime * Character.speedY
+        Character.speedX = Character.speedX * 0.9
     else
         Character.noInputNextState(deltaTime)
     end
