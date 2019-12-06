@@ -49,4 +49,9 @@ function love.update(dt)
 		timer =  timer - dt
 
 	end
+
+	if k.isDown('r') then
+		love.load()
+	end
+
 end
