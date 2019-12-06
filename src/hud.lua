@@ -1,6 +1,5 @@
 local Hud = {}
 
-score = 0
 local function load()
 
     Hud.font = love.graphics.newFont("resources/kindergarten.ttf", 30)
@@ -9,11 +8,9 @@ end
 
 local function update()
 
-score = score + 0.1
-
 end
 
-local function draw(x)
+local function draw(score, maxScore)
 
     -- Timer
     love.graphics.setFont(Hud.font)
@@ -37,15 +34,15 @@ local function draw(x)
     love.graphics.setColor(0, 0, 0)
     love.graphics.rectangle('line', 630, 20, 150, 30)
 
-    if score < 50 then
+    if score < maxScore/3 then
         love.graphics.setColor(1, 0, 0)
-    elseif score > 100 then
+    elseif score > maxScore*2/3 then
         love.graphics.setColor(0, 1, 0)
     else
         love.graphics.setColor(1, 1, 0)
     end
     
-    love.graphics.rectangle('fill', 631, 21, math.min(score, 148), 28)
+    love.graphics.rectangle('fill', 631, 21, math.min(score/maxScore*148, 148), 28)
 
     love.graphics.setColor(0, 0, 0)
     love.graphics.line(680, 20, 680, 50)

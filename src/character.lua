@@ -40,10 +40,10 @@ local function draw()
     --g.setBackgroundColor(1,1,1)
     g.setColor(1,1,1)
     g.rectangle('fill', Character.x, Character.y, Character.width, Character.height)
-    g.print(Character.score, 10, 20)
-    g.print(Character.speedX, 10, 30)
-    g.print(Character.y, 30,40)
-    g.print(string.format("%s", Character.moveState == 2), 40,60)
+    --g.print(Character.score, 10, 20)
+    --g.print(Character.speedX, 10, 30)
+    --g.print(Character.y, 30,40)
+    --g.print(string.format("%s", Character.moveState == 2), 40,60)
 
 end
 

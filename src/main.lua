@@ -19,7 +19,7 @@ end
 
 function love.draw()
 	background.draw()
-	hud.draw(background.x)
+	hud.draw(character.score, 1000)
 	entities.draw()
 	character.draw()
 end
