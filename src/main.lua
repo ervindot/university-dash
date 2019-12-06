@@ -1,3 +1,12 @@
+function love.load()
+    -- ...
+end
+
 function love.draw()
-	love.graphics
+	local character = require("character")
+	character.draw()
+end
+
+function love.update(dt)
+    -- ...
 end
